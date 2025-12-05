@@ -32,15 +32,19 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    // Create Employee
     @PostMapping
     public ResponseEntity<EmployeeResponseDTO> createEmployee(@Valid @RequestBody EmployeeRequestDTO requestDTO) {
         Employee employee = mapToEntity(requestDTO);
         Employee saved = employeeService.addEmployee(employee);
         EmployeeResponseDTO responseDTO = mapToResponseDTO(saved);
 
+        // Location header: /employees/{id}
         URI location = URI.create("/employees/" + saved.getId());
         return ResponseEntity.created(location).body(responseDTO);
     }
+
+    // Get all employees
     @GetMapping
     public ResponseEntity<List<EmployeeResponseDTO>> getAllEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
@@ -60,6 +64,7 @@ public class EmployeeController {
         return ResponseEntity.ok(mapToResponseDTO(employee));
     }
 
+    // Update employee
     @PutMapping("/{id}")
     public ResponseEntity<EmployeeResponseDTO> updateEmployee(
             @PathVariable Integer id,
@@ -75,6 +80,7 @@ public class EmployeeController {
         return ResponseEntity.ok(mapToResponseDTO(updated));
     }
 
+    // Delete employee
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
         Employee existing = employeeService.getEmployeeById(id);
@@ -85,6 +91,7 @@ public class EmployeeController {
         return ResponseEntity.noContent().build();
     }
 
+    // ===== Helper mapping methods =====
 
     private Employee mapToEntity(EmployeeRequestDTO dto) {
         Employee employee = new Employee();

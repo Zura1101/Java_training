@@ -1,6 +1,5 @@
 package com.example.employeeapi.controller;
 
-
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,15 +31,21 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    // ====== CREATE ======
     @PostMapping
-    public ResponseEntity<EmployeeResponseDTO> createEmployee(@Valid @RequestBody EmployeeRequestDTO requestDTO) {
+    public ResponseEntity<EmployeeResponseDTO> createEmployee(
+            @Valid @RequestBody EmployeeRequestDTO requestDTO) {
+
         Employee employee = mapToEntity(requestDTO);
         Employee saved = employeeService.addEmployee(employee);
         EmployeeResponseDTO responseDTO = mapToResponseDTO(saved);
 
+        // Location header: /employees/{id}
         URI location = URI.create("/employees/" + saved.getId());
         return ResponseEntity.created(location).body(responseDTO);
     }
+
+    // ====== READ ALL ======
     @GetMapping
     public ResponseEntity<List<EmployeeResponseDTO>> getAllEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
@@ -50,7 +55,7 @@ public class EmployeeController {
         return ResponseEntity.ok(response);
     }
 
-    // Get employee by ID
+    // ====== READ BY ID ======
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeResponseDTO> getEmployeeById(@PathVariable Integer id) {
         Employee employee = employeeService.getEmployeeById(id);
@@ -60,6 +65,7 @@ public class EmployeeController {
         return ResponseEntity.ok(mapToResponseDTO(employee));
     }
 
+    // ====== UPDATE ======
     @PutMapping("/{id}")
     public ResponseEntity<EmployeeResponseDTO> updateEmployee(
             @PathVariable Integer id,
@@ -75,16 +81,17 @@ public class EmployeeController {
         return ResponseEntity.ok(mapToResponseDTO(updated));
     }
 
+    // ====== DELETE ======
+    // Final path: DELETE /employees/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
-        Employee existing = employeeService.getEmployeeById(id);
-        if (existing == null) {
-            return ResponseEntity.notFound().build();
-        }
+        // If employeeService.deleteEmployee(id) throws EmployeeNotFoundException,
+        // your GlobalExceptionHandler will convert that to 404 JSON.
         employeeService.deleteEmployee(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build(); // 204
     }
 
+    // ===== Helper mapping methods =====
 
     private Employee mapToEntity(EmployeeRequestDTO dto) {
         Employee employee = new Employee();
