@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Employees - Day4</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div>
+                <h1>Employees (Day 4)</h1>
+                <p class="muted">Validation + error handling + better UX</p>
+            </div>
+
+            <div class="header-actions">
+                <input id="search" class="input" type="search" placeholder="Search name/department..." />
+                <button id="refreshBtn" class="btn">Refresh</button>
+            </div>
+        </header>
+
+        <div id="toast" class="toast hidden"></div>
+
+        <section class="card">
+            <div class="row row-between">
+                <h2>Employee List</h2>
+                <span id="busy" class="pill hidden">Working...</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:70px;">ID</th>
+                            <th>Name</th>
+                            <th style="width:180px;">Department</th>
+                            <th style="width:140px;">Salary</th>
+                            <th style="width:210px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="grid">
+            <div class="card">
+                <h2>Add Employee (POST)</h2>
+
+                <form id="addForm" class="form">
+                    <label>
+                        Name
+                        <input id="addName" class="input" type="text" placeholder="Bhargav" />
+                        <small class="err" id="addNameErr"></small>
+                    </label>
+
+                    <label>
+                        Department
+                        <input id="addDept" class="input" type="text" placeholder="IT" />
+                        <small class="err" id="addDeptErr"></small>
+                    </label>
+
+                    <label>
+                        Salary
+                        <input id="addSalary" class="input" type="number" min="0" step="0.01" placeholder="8000" />
+                        <small class="err" id="addSalaryErr"></small>
+                    </label>
+
+                    <button class="btn primary" type="submit">Add</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Update Employee (PUT)</h2>
+
+                <form id="updForm" class="form">
+                    <label>
+                        ID
+                        <input id="updId" class="input" type="number" min="1" placeholder="1" />
+                        <small class="err" id="updIdErr"></small>
+                    </label>
+
+                    <label>
+                        Name
+                        <input id="updName" class="input" type="text" placeholder="New Name" />
+                        <small class="err" id="updNameErr"></small>
+                    </label>
+
+                    <label>
+                        Department
+                        <input id="updDept" class="input" type="text" placeholder="New Dept" />
+                        <small class="err" id="updDeptErr"></small>
+                    </label>
+
+                    <label>
+                        Salary
+                        <input id="updSalary" class="input" type="number" min="0" step="0.01" placeholder="9000" />
+                        <small class="err" id="updSalaryErr"></small>
+                    </label>
+
+                    <button class="btn warn" type="submit">Update</button>
+                </form>
+
+                <p class="muted hint">Tip: click <b>Edit</b> to auto-fill update form.</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>

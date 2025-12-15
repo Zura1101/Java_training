@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Employee Management App</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div>
+                <h1>Employee Management</h1>
+                <p class="muted">Full-stack app (Spring Boot + MySQL + Security + UI)</p>
+            </div>
+            <div class="header-actions">
+                <input id="search" class="input" type="search" placeholder="Search name/department..." />
+                <button id="refreshBtn" class="btn">Refresh</button>
+            </div>
+        </header>
+
+        <div id="toast" class="toast hidden"></div>
+
+        <section class="card">
+            <div class="row row-between">
+                <h2>Employees</h2>
+                <span id="busy" class="pill hidden">Working...</span>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:70px;">ID</th>
+                            <th>Name</th>
+                            <th style="width:180px;">Department</th>
+                            <th style="width:140px;">Salary</th>
+                            <th style="width:210px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="grid">
+            <div class="card">
+                <h2>Add (POST)</h2>
+                <form id="addForm" class="form">
+                    <label>Name <input id="addName" class="input" type="text" /></label>
+                    <label>Department <input id="addDept" class="input" type="text" /></label>
+                    <label>Salary <input id="addSalary" class="input" type="number" min="0" step="0.01" /></label>
+                    <button class="btn primary" type="submit">Add</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Update (PUT)</h2>
+                <form id="updForm" class="form">
+                    <label>ID <input id="updId" class="input" type="number" min="1" /></label>
+                    <label>Name <input id="updName" class="input" type="text" /></label>
+                    <label>Department <input id="updDept" class="input" type="text" /></label>
+                    <label>Salary <input id="updSalary" class="input" type="number" min="0" step="0.01" /></label>
+                    <button class="btn warn" type="submit">Update</button>
+                </form>
+                <p class="muted hint">Tip: click <b>Edit</b> in table to auto-fill.</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>
